@@ -1,135 +1,113 @@
-# ETE v1.1 — Executable Thought Experiment
+# ETE v1.1 — Cognitive Efficiency Gate
 
-> **An executable thought experiment that simulates the long-term efficiency and collapse dynamics of different decision strategies.**
+**ETE (Endobiotic Totality Engine)** 는
+AI가 생성하는 계획이 *논리적으로는 그럴듯하지만 물리적으로 지속 불가능한 경우*를 차단하기 위한
+**사고 실험 기반의 효율 검증 시뮬레이터**입니다.
 
----
-
-## Why
-
-Many strategies that maximize short-term output appear effective at first,
-yet fail catastrophically over time.
-
-This project exists to answer a simple but often unmodeled question:
-
-> **What is the long-term cost of high-gain, rigid strategies compared to stable, adaptive ones?**
-
-Instead of arguing philosophically, this repository encodes the question
-as a **minimal, executable simulation** that makes the trade-off visible over time.
-
-This is **not** a model of the human brain.
-It is a **strategy-level abstraction** designed to expose structural dynamics:
-
-* output vs. cost
-* gain vs. rigidity
-* short-term advantage vs. long-term efficiency
+이 프로젝트는 “더 열심히”가 아니라
+**“지속 가능한가?”** 를 묻는 Gate를 제공합니다.
 
 ---
 
-## Model
+## Why (왜 필요한가)
 
-The simulation compares two abstract decision states:
+현재의 AI는 다음과 같은 계획을 매우 자주 제안합니다:
 
-### 1. High-Gain / High-Rigidity State (`Meth-State`)
+* “30일 안에 MVP 완성, 하루 16시간 몰입”
+* “잠을 줄여 단기간에 성과 극대화”
+* “초반에 전력을 쏟아 빠르게 따라잡자”
 
-* Produces high output early
-* Amplifies noise as gain increases
-* Accumulates irreversible degradation
-* Eventually collapses after energy depletion
+이 계획들은:
 
-### 2. Optimal-Gain / Flexible State (`Will-State`)
+* ❌ 논리적으로는 틀리지 않지만
+* ❌ 비용(에너지·회복·엔트로피)을 누락하고
+* ❌ 장기적으로는 거의 확실하게 붕괴합니다.
 
-* Maintains moderate, stable output
-* Uses controlled stochasticity
-* Preserves adaptability
-* Remains efficient over long horizons
-
-The system tracks:
-
-* instantaneous performance
-* cumulative output (area under the curve)
-* collapse dynamics after a critical depletion point
-
-The model is **deterministic except for controlled noise**,
-allowing reproducible experiments with interpretable variance.
+**ETE의 목적은 AI의 ‘그럴듯한 붕괴 계획’을 사전에 차단하는 것입니다.**
 
 ---
 
-## Assumptions
+## Model (무엇을 모델링하는가)
 
-This simulation intentionally makes strong simplifications:
+ETE는 인간이나 뇌를 정확히 모사하지 않습니다.
+대신 **두 가지 전략적 상태의 차이를 비교**합니다.
 
-* Strategies are modeled as **state machines**, not agents with beliefs
-* “Energy,” “rigidity,” and “noise” are abstract parameters, not biological measurements
-* Collapse is modeled as an **irreversible regime change**
-* No learning, recovery, or external intervention is allowed after collapse
-* Parameters are chosen for **structural clarity**, not empirical fitting
+### 비교 대상
 
-These assumptions are not flaws — they are **constraints that make the dynamics legible**.
+* **Meth-State**
 
----
+  * 높은 증폭(Gain)
+  * 높은 경직성(Rigidity)
+  * 단기 성과 ↑ / 장기 붕괴 필연
+* **Will-State**
 
-## Limits
+  * 최적화된 증폭
+  * 낮은 경직성
+  * 장기 안정성 유지
 
-What this project does **not** claim:
+### 핵심 지표
 
-* ❌ It does not model neuroscience or psychology
-* ❌ It does not predict individual human behavior
-* ❌ It is not a medical, clinical, or behavioral theory
-* ❌ It is not an AI or reinforcement learning system
-
-This simulation should be read as:
-
-> **a structural demonstration of strategy dynamics, not a theory of mind.**
-
-Any interpretation beyond that is the responsibility of the reader.
+* **Ψ (Efficiency Index)**
+  = 누적 성과 / 누적 에너지 비용
+  → *“얼마나 오래, 덜 망가지며 성과를 내는가”*
 
 ---
 
-## How to Run
+## Assumptions (전제 조건)
 
-### Requirements
+* 이 모델은 **계산적 사고 실험**입니다.
+* 모든 값은 **비교 목적의 상대 지표**입니다.
+* 생물학적·심리학적 정확성을 주장하지 않습니다.
+* “열역학”은 물리량이 아니라 **비용 누적 구조의 은유**입니다.
 
-* Python **3.10+** (tested on Python 3.12)
-* `numpy`
-* `matplotlib`
+👉 이 프로젝트는 **설명 모델이지 진단 도구가 아닙니다.**
 
-Install dependencies:
+---
 
-```bash
-pip install numpy matplotlib
-```
+## Limits (한계)
 
-### Execute
+* 개인의 실제 생산성이나 건강을 예측하지 않습니다.
+* 정책, 의학, 노동 기준을 제안하지 않습니다.
+* 실증 데이터는 포함하지 않습니다.
+* “옳은 삶의 방식”을 말하지 않습니다.
+
+**ETE는 판단하지 않고, 단지 차단합니다.**
+
+---
+
+## How to Run (실행 방법)
 
 ```bash
 python ete_v1_1_canvas.py
 ```
 
-### Output
+실행 시:
 
-The script generates:
+* 10,000 스텝 시뮬레이션 수행
+* Meth-State vs Will-State 비교 그래프 출력
+* 누적 효율(Ψ) 및 에너지 비용 리포트 출력
 
-* Time-series performance comparison
-* Cumulative output curves
-* Visual indication of the collapse threshold
+필요 환경:
 
-All results are produced locally with no external dependencies.
-
----
-
-## Interpretation Guide (Optional Reading)
-
-* Early dominance does **not** imply long-term superiority
-* Cumulative output is a more reliable metric than peak performance
-* High gain amplifies both signal **and** noise
-* Rigidity accelerates collapse once adaptability is lost
-
-If the curves surprise you, that is the point.
+* Python 3.10+
+* numpy
+* matplotlib
 
 ---
 
-## License
+## What This Is For (어디에 쓰는가)
 
-MIT License — use, modify, or extend freely, with attribution.
+* AI 생성 계획 검증 Gate
+* “과로·몰입·단기 전력투입” 계획 차단
+* 생산성 담론의 **물리적 현실성 필터**
+* Z MODE / Quality Checker의 Physics Layer
+
+---
+
+## One-line Summary
+
+> **ETE는 AI가 가장 자주 제안하고,
+> 가장 확실하게 인간을 붕괴시키는 계획을
+> ‘물리적으로’ 차단하기 위한 사고 실험 엔진이다.**
 
 ---
